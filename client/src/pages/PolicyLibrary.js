@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
+import { normalizeIcon } from '../services/iconNormalizer';
 import './PolicyLibrary.css';
 
 const CAT_COLORS = {
@@ -10,7 +11,7 @@ const CAT_COLORS = {
 const CATEGORIES = ['All','Education','Healthcare','Environment','Economic','Infrastructure','Social','Agriculture'];
 
 // Generate complete fallback policy data with simulation support
-const FALLBACK_POLICIES = (() => {
+const FALLBACK_POLICIES = (() => { 
   const titles = [
     'Free WiFi for School Students','Mid-Day Meal Scheme','Digital Classroom Initiative','Free Higher Education for Girls','National Coding in Schools',
     'Universal Health Coverage','National Vaccination Drive','Mental Health in Schools','Swachh Bharat Mission','Ayushman Bharat PM-JAY',
@@ -21,7 +22,7 @@ const FALLBACK_POLICIES = (() => {
     'PM-KISAN Direct Income Support','Fasal Bima Crop Insurance','Drip Irrigation Mission','Organic Farming Mission','e-NAM Agricultural Markets'
   ];
   const categories = ['Education','Healthcare','Environment','Economic','Infrastructure','Social','Agriculture'];
-  const icons = ['📶','🍱','🖥️','👩‍🎓','💻','🏥','💉','🧠','🚿','💊','☀️','♻️','🚗','🌱','💧','📊','🛠️','🚀','💳','⚡','🏗️','📡','🏙️','🚇','🏠','💰','👧','🔥','👷','🛒','🚜','📋','💧','🌾','🛍️'];
+  const icons = ['◉','◈','▣','◍','▤','✚','✛','◎','◌','⬢','◐','↺','▸','◇','◒','◬','⌁','△','▭','ϟ','▦','⌗','▥','≋','⌂','¤','◔','✦','◧','⊞','◨','▤','◒','⋔','⊡'];
 
   return titles.map((t, i) => {
     const phases = [
@@ -59,7 +60,7 @@ const FALLBACK_POLICIES = (() => {
       phases,
       impactData,
       positiveImpacts: [{label: 'Positive Effect',icon: '✓',description: 'This policy has positive outcomes'}],
-      negativeImpacts: [{label: 'Challenge',icon: '⚠️',description: 'Implementation faces challenges'}]
+      negativeImpacts: [{label: 'Challenge',icon: '⚠',description: 'Implementation faces challenges'}]
     };
   });
 })();
@@ -177,7 +178,7 @@ export default function PolicyLibrary() {
               >
                 <div className="lc-accent" />
                 <div className="lc-top">
-                  <div className="lc-icon">{p.icon}</div>
+                  <div className="lc-icon">{normalizeIcon(p.icon)}</div>
                   <div className="lc-cat" style={{ color: CAT_COLORS[p.category] }}>{p.category}</div>
                 </div>
                 <div className="lc-title">{p.title}</div>
@@ -185,7 +186,7 @@ export default function PolicyLibrary() {
                 <div className="lc-footer">
                   <div className="lc-meta">
                     <span>⏱ {p.duration}mo</span>
-                    <span>💰 {p.budget}</span>
+                    <span>¤ {p.budget}</span>
                   </div>
                   <div className="lc-actions">
                     <button
@@ -212,7 +213,7 @@ export default function PolicyLibrary() {
         {selected && (
           <div className="detail-panel fade-in">
             <button className="detail-close" onClick={() => setSelected(null)}>×</button>
-            <div className="dp-icon">{selected.icon}</div>
+            <div className="dp-icon">{normalizeIcon(selected.icon)}</div>
             <div className="dp-cat" style={{ color: CAT_COLORS[selected.category] }}>{selected.category}</div>
             <div className="dp-title">{selected.title}</div>
             <div className="dp-sub">{selected.subtitle}</div>
@@ -244,7 +245,7 @@ export default function PolicyLibrary() {
                 <div className="dp-section-label" style={{color:'var(--green)'}}>✓ Positive</div>
                 {selected.positiveImpacts?.map(imp => (
                   <div key={imp.label} className="dp-impact-item dp-pos">
-                    <span>{imp.icon}</span>
+                    <span>{normalizeIcon(imp.icon)}</span>
                     <div>
                       <div className="dpi-label">{imp.label}</div>
                       <div className="dpi-desc">{imp.description}</div>
@@ -256,7 +257,7 @@ export default function PolicyLibrary() {
                 <div className="dp-section-label" style={{color:'var(--red)'}}>✗ Negative</div>
                 {selected.negativeImpacts?.map(imp => (
                   <div key={imp.label} className="dp-impact-item dp-neg">
-                    <span>{imp.icon}</span>
+                    <span>{normalizeIcon(imp.icon)}</span>
                     <div>
                       <div className="dpi-label">{imp.label}</div>
                       <div className="dpi-desc">{imp.description}</div>

@@ -20,7 +20,7 @@ A beautiful MERN stack application with **35 real Indian government policies**, 
 
 ---
 
-## 🚀 Setup
+## Setup
 
 ### 1. Clone & Install
 

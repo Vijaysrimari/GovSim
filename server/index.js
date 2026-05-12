@@ -6,7 +6,7 @@ const { ensureSeeded } = require('./data/seed');
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: '*', credentials: false }));
 app.use(express.json());
 
 // Routes
@@ -18,6 +18,11 @@ app.use('/api/users', require('./routes/users'));
 
 // Health
 app.get('/api/health', (_, res) => res.json({ status: 'ok', time: new Date() }));
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/govsim';

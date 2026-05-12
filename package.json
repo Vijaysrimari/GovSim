@@ -4,9 +4,10 @@
   "description": "Government Policy 3D Simulation Platform",
   "main": "server/index.js",
   "scripts": {
+    "predev": "kill-port 3000 5000",
     "server": "nodemon server/index.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently -k \"npm run server\" \"npm run client\"",
     "install-all": "npm install && cd client && npm install",
     "seed": "node server/data/seed.js"
   },
@@ -19,6 +20,7 @@
     "mongoose": "^7.3.1"
   },
   "devDependencies": {
+    "kill-port": "^2.0.1",
     "concurrently": "^8.2.0",
     "nodemon": "^3.0.1"
   }

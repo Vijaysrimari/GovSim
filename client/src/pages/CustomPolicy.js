@@ -102,12 +102,12 @@ export default function CustomPolicy() {
         phases: buildPhases(duration),
         impactData: impactPreview,
         positiveImpacts: [
-          { label: 'Adoption', icon: '📈', description: 'Program uptake across target population' },
-          { label: 'Public Benefit', icon: '✅', description: 'Policy benefits reaching beneficiaries' }
+          { label: 'Adoption', icon: '◬', description: 'Program uptake across target population' },
+          { label: 'Public Benefit', icon: '✓', description: 'Policy benefits reaching beneficiaries' }
         ],
         negativeImpacts: [
-          { label: 'Operational Risk', icon: '⚠️', description: 'Implementation and delivery risk over time' },
-          { label: 'Cost Pressure', icon: '💸', description: 'Budget and procurement pressure during rollout' }
+          { label: 'Operational Risk', icon: '⚠', description: 'Implementation and delivery risk over time' },
+          { label: 'Cost Pressure', icon: '¤', description: 'Budget and procurement pressure during rollout' }
         ],
         netScore: Math.round((form.economicPeak + form.socialPeak + form.environmentalPeak - form.risk - form.costPressure) / 2),
         peakMonth: duration

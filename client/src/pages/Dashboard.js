@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import api from '../services/api';
+import { normalizeIcon } from '../services/iconNormalizer';
 import './Dashboard.css';
 
 const CAT_COLORS = {
@@ -109,7 +110,7 @@ export default function Dashboard() {
               onClick={() => navigate(`/app/policies?category=${c.name}`)}
               style={{ '--cat-color': CAT_COLORS[c.name] || '#6b7280' }}
             >
-              <div className="cat-icon">{c.icon}</div>
+              <div className="cat-icon">{normalizeIcon(c.icon)}</div>
               <div className="cat-name">{c.name}</div>
               <div className="cat-count">{c.policyCount} policies</div>
               <div className="cat-arrow">→</div>
@@ -128,14 +129,14 @@ export default function Dashboard() {
           {recent.map(p => (
             <div key={p._id} className="policy-card" onClick={() => navigate(`/app/simulate/${p._id}`)}>
               <div className="pc-top">
-                <div className="pc-icon" style={{ background: `${CAT_COLORS[p.category]}18` }}>{p.icon}</div>
+                <div className="pc-icon" style={{ background: `${CAT_COLORS[p.category]}18` }}>{normalizeIcon(p.icon)}</div>
                 <div className="pc-cat" style={{ color: CAT_COLORS[p.category] || 'var(--orange)' }}>{p.category}</div>
               </div>
               <div className="pc-title">{p.title}</div>
               <div className="pc-sub">{p.subtitle}</div>
               <div className="pc-meta">
                 <span className="pc-tag">⏱ {p.duration} months</span>
-                <span className="pc-tag">👥 {p.targetPopulation}</span>
+                <span className="pc-tag"># {p.targetPopulation}</span>
               </div>
               <div className="pc-simulate">Simulate in 3D →</div>
             </div>

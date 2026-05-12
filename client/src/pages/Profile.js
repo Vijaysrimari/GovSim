@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { normalizeIcon } from '../services/iconNormalizer';
 import './Profile.css';
 
 export default function Profile() {
@@ -42,7 +43,7 @@ export default function Profile() {
           {savedPolicies.map((p) => (
             <button key={p._id} className="saved-item" onClick={() => navigate(`/app/simulate/${p._id}`)}>
               <div className="si-top">
-                <span>{p.icon || '⬡'}</span>
+                <span>{normalizeIcon(p.icon, '⬡')}</span>
                 <strong>{p.title}</strong>
               </div>
               <div className="si-sub">{p.category} • {p.duration} months</div>
@@ -56,7 +57,7 @@ export default function Profile() {
           {savedSimulations.map((run) => (
             <div key={run._id} className="history-item">
               <div className="hi-line">
-                <strong>{run.policyId?.icon} {run.policyId?.title || 'Policy'}</strong>
+                <strong>{normalizeIcon(run.policyId?.icon, '⬡')} {run.policyId?.title || 'Policy'}</strong>
                 <span>Month {run.month}</span>
               </div>
               <div className="hi-sub">

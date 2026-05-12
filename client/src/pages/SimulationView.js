@@ -4,6 +4,7 @@ import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tool
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import api from '../services/api';
+import { normalizeIcon } from '../services/iconNormalizer';
 import PolicyScene3D from '../components/3d/PolicyScene3D';
 import './SimulationView.css';
 
@@ -13,9 +14,9 @@ const CAT_COLORS = {
 };
 
 const AXES = [
-  { key: 'economic', label: 'Economic', color: '#f59e0b', icon: '📈' },
-  { key: 'social', label: 'Social', color: '#ec4899', icon: '🤝' },
-  { key: 'environmental', label: 'Environmental', color: '#22c55e', icon: '🌿' }
+  { key: 'economic', label: 'Economic', color: '#f59e0b', icon: '◬' },
+  { key: 'social', label: 'Social', color: '#ec4899', icon: '⟗' },
+  { key: 'environmental', label: 'Environmental', color: '#22c55e', icon: '◇' }
 ];
 
 function clampMonth(value, maxMonth) {
@@ -38,7 +39,7 @@ const getFallbackPolicy = (id) => {
       'PM-KISAN Direct Income Support','Fasal Bima Crop Insurance','Drip Irrigation Mission','Organic Farming Mission','e-NAM Agricultural Markets'
     ];
     const categories = ['Education','Healthcare','Environment','Economic','Infrastructure','Social','Agriculture'];
-    const icons = ['📶','🍱','🖥️','👩‍🎓','💻','🏥','💉','🧠','🚿','💊','☀️','♻️','🚗','🌱','💧','📊','🛠️','🚀','💳','⚡','🏗️','📡','🏙️','🚇','🏠','💰','👧','🔥','👷','🛒','🚜','📋','💧','🌾','🛍️'];
+    const icons = ['◉','◈','▣','◍','▤','✚','✛','◎','◌','⬢','◐','↺','▸','◇','◒','◬','⌁','△','▭','ϟ','▦','⌗','▥','≋','⌂','¤','◔','✦','◧','⊞','◨','▤','◒','⋔','⊡'];
 
     FALLBACK_POLICIES_MAP = {};
     titles.forEach((t, i) => {
@@ -322,7 +323,7 @@ export default function SimulationView() {
       <div className="sim-topbar">
         <button className="sim-back" onClick={() => navigate('/app/policies')}>← Back</button>
         <div className="sim-id">
-          <span className="sim-icon">{policy.icon || '⬡'}</span>
+          <span className="sim-icon">{normalizeIcon(policy.icon, '⬡')}</span>
           <div>
             <div className="sim-title">{policy.title}</div>
             <div className="sim-subtitle" style={{ color: catColor }}>{policy.category}</div>
@@ -387,7 +388,7 @@ export default function SimulationView() {
           <div className="comp-tags">
             {comparisonPolicies.map((p) => (
               <button key={p._id} className="comp-tag" onClick={() => setComparisonIds((s) => s.filter((idItem) => idItem !== p._id))}>
-                {p.icon || '⬡'} {p.title} ×
+                {normalizeIcon(p.icon, '⬡')} {p.title} ×
               </button>
             ))}
           </div>
@@ -476,7 +477,7 @@ export default function SimulationView() {
           const val = pos?.value || 0;
           return (
             <div key={imp.label} className="effect-row">
-              <span className="ef-icon">{imp.icon}</span>
+              <span className="ef-icon">{normalizeIcon(imp.icon)}</span>
               <div className="ef-body">
                 <div className="ef-label">{imp.label}</div>
                 <div className="ef-bar-bg"><div className="ef-bar" style={{ width: `${val}%`, background: '#22c55e' }} /></div>
@@ -495,7 +496,7 @@ export default function SimulationView() {
           const val = neg?.value || 0;
           return (
             <div key={imp.label} className="effect-row">
-              <span className="ef-icon">{imp.icon}</span>
+              <span className="ef-icon">{normalizeIcon(imp.icon)}</span>
               <div className="ef-body">
                 <div className="ef-label">{imp.label}</div>
                 <div className="ef-bar-bg"><div className="ef-bar" style={{ width: `${val}%`, background: '#ef4444' }} /></div>
